@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature-Rich Chat UI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-md-4 col-lg-3 sidebar p-0">
+                <div class="p-3 bg-light">
+                    
+                    <h5 class="mb-3">Chat with us</h5>
+                </div>
+                <ul class="list-group list-group-flush overflow-auto bg-secondary" style="height: calc(100% - 120px);">
+                    <li class="list-group-item active" aria-current="true">
+                        <div class="d-flex align-items-center">
+                            <img src="../shared/images/image.png" alt="Avatar" class="rounded-circle me-2" width="50" height="50">
+                            <div>
+                                <h6 class="mb-0">FIT BOT</h6>
+                                <small>Baccha free ka gayan le le angragi me</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex align-items-center">
+                            <img src=".//images/dietbot.jpg" alt="Avatar" class="rounded-circle me-2" width="50" height="50">
+                            <div>
+                               <a class="link-offset-2 link-underline link-underline-opacity-0" href="diet.html"> <h6 class="mb-0">DIET BOT</h6></a>
+                                <small>Let's catch up for a run tomorrow!</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex align-items-center">
+                            <img src=".//images/aid bot.jpg" alt="Avatar" class="rounded-circle me-2" width="50" height="50">
+                            <div>
+                                <a class="link-offset-2 link-underline link-underline-opacity-0" href="aid.html"><h6 class="mb-0">AID BOT</h6></a>
+                                
+                                <small>Can you share that diet plan?</small>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-8 col-lg-9 main-chat p-0">
+                <div class="chat-header p-3 bg-light border-bottom">
+                    
+                    <div class="d-flex align-items-center">
+                        <img src="../shared/images/image.png" alt="Avatar" class="rounded-circle me-2" width="50" height="50">
+                        <div>
+                            <h5 class="mb-0">FIT BOT</h5>
+                            
+                            <small class="text-success">Online</small>
+                            
+                        </div>
+                        <div class=" position-absolute top-2 end-0">
+                        
+                            <a  href="../before_login/homepage.html"><button class="btn btn-secondary " type="button">HOME</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-messages bg-secondary p-3 overflow-auto" style="height: calc(100% - 130px);">
+                    <div class="message received">
+                        <p>Hey, how's your workout going?</p>
+                        <small class="text-muted">10:30 AM</small>
+                    </div>
+                    <div class="message sent">
+                        <p>It's going great! Just finished a 5K run. How about you?</p>
+                        <small class="text-muted">10:32 AM</small>
+                    </div>
+                    <div class="message received">
+                        <p>Wow, that's impressive! I'm about to start my yoga session. Any tips for a good cool-down routine?</p>
+                        <small class="text-muted">10:35 AM</small>
+                    </div>
+                    <div class="message sent">
+                        <p>Absolutely! After your yoga, try some light stretching focusing on your hamstrings and back. Also, don't forget to hydrate!</p>
+                        <small class="text-muted">10:38 AM</small>
+                    </div>
+                </div>
+                <div class="chat-input p-3 bg-light border-top">
+                    <form id="chat-form" class="d-flex">
+                        <input type="text" id="message-input" class="form-control me-2" placeholder="Type your message...">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('chat-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var input = document.getElementById('message-input');
+            var message = input.value.trim();
+            if (message) {
+                var chatMessages = document.querySelector('.chat-messages');
+                var newMessage = document.createElement('div');
+                newMessage.className = 'message sent';
+                newMessage.innerHTML = '<p>' + message + '</p><small class="text-muted">' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '</small>';
+                chatMessages.appendChild(newMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                input.value = '';
+                
+                // Simulate bot response
+                setTimeout(function() {
+                    var botMessage = document.createElement('div');
+                    botMessage.className = 'message received';
+                    var botResponse = getBotResponse(message);
+                    botMessage.innerHTML = '<p>' + botResponse + '</p><small class="text-muted">' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '</small>';
+                    chatMessages.appendChild(botMessage);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        });
+
+        function getBotResponse(message) {
+            message = message.toLowerCase();
+            if (message.includes('workout') || message.includes('exercise')) {
+                return "For an effective workout, ensure you warm up properly, maintain good form, and gradually increase intensity. Don't forget to cool down and stretch afterwards!";
+            } 
+            else if (message.includes('about') && message.includes('yoga')) {
+                return "A balanced diet is key to fitness. Ensure you're getting a good mix of proteins, carbs, and healthy fats. Stay hydrated and consider consulting a nutritionist for personalized advice.";
+            } 
+            else if (message.includes('about') && message.includes('exercise')) {
+                return "A balanced diet is key to fitness. Ensure you're getting a good mix of proteins, carbs, and healthy fats. Stay hydrated and consider consulting a nutritionist for personalized advice.";
+            } 
+            
+            else if (message.includes('beginner') && message.includes('yoga')) {
+                return "For beginners, yoga focuses on building strength and flexibility with simple poses like Mountain Pose, Downward Dog, and Child's Pose.";
+            }
+            
+            else if (message.includes('intermediate') && message.includes('yoga chart')) {
+                return "An intermediate yoga chart includes Sun Salutations, Warrior II, Half Moon Pose, and deeper backbends to build strength and balance.";
+            }
+            
+            else if (message.includes('pro') && message.includes('yoga poses')) {
+                return "Pro-level yoga poses include Handstands, King Pigeon Pose, and Scorpion Pose, which require advanced balance, strength, and flexibility.";
+            }
+            
+            else if (message.includes('yoga') && message.includes('flexibility')) {
+                return "Yoga is excellent for improving flexibility. Regular practice of poses like Forward Fold, Pigeon Pose, and Cobra Pose helps stretch muscles and improve range of motion.";
+            }
+            
+            else if (message.includes('hold') && message.includes('yoga poses')) {
+                return "For beginners, hold yoga poses for 15-30 seconds. Intermediate users can hold for 30-60 seconds, and advanced users may hold for 1-2 minutes depending on the pose.";
+            }
+            
+            else if (message.includes('yoga chart') && message.includes('progress')) {
+                return "A yoga chart can help track your progress by showing which poses you've mastered and highlighting areas for improvement, whether it's flexibility, balance, or strength.";
+            }
+            
+            else if (message.includes('advanced') && message.includes('mental clarity')) {
+                return "Advanced yoga practices like inversions and meditation improve mental clarity by balancing your focus, breathing, and body awareness.";
+            }
+            
+            else if (message.includes('beginner') && message.includes('duration')) {
+                return "As a beginner, it's best to hold each pose for 15-30 seconds, allowing your body to adjust and strengthen gradually.";
+            }
+            
+            else if (message.includes('yoga') && message.includes('balance improvement')) {
+                return "To improve balance in yoga, focus on poses like Tree Pose and Eagle Pose. Engage your core and stay steady with deep, controlled breathing.";
+            }
+            
+            else if (message.includes('pro') && message.includes('yoga chart')) {
+                return "A pro-level yoga chart includes advanced postures such as Handstands, Scorpion Pose, and advanced breath control techniques for a holistic challenge.";
+            }
+            else if (message.includes('beginner') && (message.includes('poses') || message.includes('exercises'))) {
+                return "Beginner yoga poses include foundational exercises like Mountain Pose, Child's Pose, and Cobra Pose to build strength and flexibility.";
+            }
+            
+            else if ((message.includes('intermediate') || message.includes('advanced')) && message.includes('progression')) {
+                return "Intermediate and advanced progression in yoga includes mastering balance poses, arm balances, and introducing inversions like Headstand and Crow Pose.";
+            }
+            
+            else if (message.includes('yoga') && (message.includes('diet') || message.includes('nutrition'))) {
+                return "Yoga practitioners benefit from a balanced diet rich in whole foods, including fresh vegetables, fruits, and lean proteins to complement your practice.";
+            }
+            
+            else if ((message.includes('improve') || message.includes('enhance')) && message.includes('yoga flexibility')) {
+                return "To improve flexibility in yoga, practice poses like Forward Fold, Pigeon Pose, and Butterfly Pose regularly, holding each stretch for 30-60 seconds.";
+            }
+            
+            else if ((message.includes('yoga') || message.includes('practice')) && (message.includes('frequency') || message.includes('days'))) {
+                return "For optimal results, beginners should practice yoga 2-3 times per week, while intermediate and advanced users may practice 4-6 times a week depending on goals.";
+            }
+            
+            else if ((message.includes('yoga') || message.includes('poses')) && (message.includes('injuries') || message.includes('safety'))) {
+                return "To prevent injuries, always warm up before yoga, avoid overstretching, and use props like blocks or straps for support, especially in advanced poses.";
+            }
+            
+            else if (message.includes('yoga') && (message.includes('mental health') || message.includes('relaxation'))) {
+                return "Yoga is great for mental health and relaxation. Poses like Child's Pose and Corpse Pose combined with deep breathing exercises help reduce stress and calm the mind.";
+            }
+            
+            else if ((message.includes('duration') || message.includes('time')) && message.includes('yoga practice')) {
+                return "A typical yoga session lasts anywhere from 20 to 60 minutes, depending on your level and goals. Beginners can start with shorter sessions and gradually increase duration.";
+            }
+            
+            else if (message.includes('balance') && (message.includes('yoga') || message.includes('poses'))) {
+                return "To enhance balance in yoga, practice poses like Tree Pose, Warrior III, and Dancer Pose. Focus on core engagement and steady breathing to maintain stability.";
+            }
+            
+            else if (message.includes('pro') && (message.includes('yoga chart') || message.includes('poses'))) {
+                return "A pro yoga chart includes challenging poses like Scorpion Pose, Handstand, and advanced arm balances to push your strength, flexibility, and control to the next level.";
+            }
+            
+            else if (message.includes('breathing') && (message.includes('techniques') || message.includes('pranayama'))) {
+                return "Pranayama, or yogic breathing techniques, include methods like Nadi Shodhana (alternate nostril breathing) and Ujjayi Breath, which help control breath and calm the mind.";
+            }
+            else if ((message.includes('yoga') || message.includes('exercise')) && (message.includes('beginner') || message.includes('easy'))) {
+                return "For beginners, yoga exercises focus on simple poses like Cat-Cow Stretch, Child’s Pose, and Bridge Pose to improve mobility and relaxation.";
+            }
+            
+            else if ((message.includes('yoga') || message.includes('exercise')) && message.includes('strength')) {
+                return "Yoga exercises for strength include Plank Pose, Chaturanga, and Warrior Poses. These poses help build muscle endurance and core stability.";
+            }
+            
+            else if ((message.includes('yoga') || message.includes('exercise')) && (message.includes('flexibility') || message.includes('stretch'))) {
+                return "Yoga exercises for flexibility include Seated Forward Fold, Standing Forward Bend, and Pigeon Pose, which stretch major muscle groups and improve range of motion.";
+            }
+            
+            else if ((message.includes('exercise') || message.includes('yoga')) && (message.includes('balance') || message.includes('core'))) {
+                return "To improve balance and core strength, practice yoga exercises like Boat Pose, Crow Pose, and Tree Pose. These poses engage the core and improve stability.";
+            }
+            
+            else if ((message.includes('yoga') || message.includes('exercise')) && message.includes('advanced')) {
+                return "Advanced yoga exercises include Handstands, Arm Balances like Crow Pose, and Full Wheel Pose. These require strength, flexibility, and focus to master.";
+            }
+            
+            else if ((message.includes('exercise') || message.includes('yoga')) && (message.includes('inversions') || message.includes('upside down'))) {
+                return "Yoga exercises like Headstand, Shoulder Stand, and Handstand are inversion poses that help improve circulation and boost focus. Ensure proper alignment to avoid injury.";
+            }
+            
+            else if ((message.includes('yoga') || message.includes('exercise')) && (message.includes('warm up') || message.includes('prepare'))) {
+                return "Before yoga, warm-up exercises like Cat-Cow, Sun Salutations, and gentle twists help loosen muscles and prepare the body for deeper stretches.";
+            }
+            
+            else if (message.includes('exercise') && (message.includes('cool down') || message.includes('relaxation'))) {
+                return "For a cool down after intense yoga, exercises like Corpse Pose (Savasana), Reclined Twist, and Child's Pose help relax the body and restore balance.";
+            }
+            
+            else if ((message.includes('yoga') || message.includes('exercise')) && (message.includes('cardio') || message.includes('fat burn'))) {
+                return "Yoga exercises like Sun Salutations, Warrior Series, and faster-paced Vinyasa flows can provide a great cardio workout, helping with fat burning and endurance.";
+            }
+            
+            else if ((message.includes('exercise') || message.includes('yoga')) && message.includes('daily routine')) {
+                return "A daily yoga routine can include a mix of flexibility, balance, and strength exercises such as Downward Dog, Tree Pose, and Plank Pose to maintain overall fitness.";
+            }
+            
+            else if ((message.includes('yoga') || message.includes('exercise')) && message.includes('weight loss')) {
+                return "For weight loss, incorporate dynamic yoga exercises like Sun Salutations, Chair Pose, and Plank into your routine. These help burn calories and tone muscles."
+            }
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('yoga chart') || message.includes('yoga schedule'))) {
+                return `
+                A typical weekly yoga chart includes:
+                - 2-3 days of strength-building poses
+                - 1-2 days of flexibility exercises
+                - 1 day focused on relaxation and breathing techniques
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('yoga routine') || message.includes('plan'))) {
+                return `
+                A weekly yoga routine for beginners could include:
+                - Simple poses on Monday and Wednesday
+                - Flexibility-focused exercises on Friday
+                - Meditation and relaxation on Sunday
+                `;
+            }
+            
+            else if ((message.includes('week') || message.includes('weekly')) && (message.includes('intermediate') || message.includes('advanced'))) {
+                return `
+                An intermediate or advanced weekly yoga chart may include:
+                - Challenging poses like inversions on Monday
+                - Balance poses on Wednesday
+                - Core-focused exercises on Friday
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('beginner') || message.includes('yoga chart'))) {
+                return `
+                A beginner's weekly yoga chart could start with:
+                - Basic stretches on Monday
+                - A mix of standing and seated poses on Wednesday
+                - A full-body routine on Friday
+                `;
+            }
+            
+            else if ((message.includes('yoga') || message.includes('exercise')) && (message.includes('weekly chart') || message.includes('schedule'))) {
+                return `
+                For a balanced weekly chart, include:
+                - Strength poses on Tuesday
+                - Flexibility exercises on Thursday
+                - Balance work on Saturday
+                - Restorative poses on Sunday
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('strength') || message.includes('build muscle'))) {
+                return `
+                For strength-building in your weekly yoga schedule, include:
+                - Plank Pose
+                - Warrior II
+                - Chair Pose on alternating days for muscle endurance
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('relaxation') || message.includes('meditation'))) {
+                return `
+                To focus on relaxation and meditation, dedicate:
+                - 1-2 days to restorative poses like Child's Pose
+                - Seated meditations on your off days
+                `;
+            }
+            
+            else if ((message.includes('week') || message.includes('weekly')) && (message.includes('full-body') || message.includes('comprehensive'))) {
+                return `
+                A comprehensive weekly yoga plan should include:
+                - Full-body sequences for flexibility
+                - Strength-building poses
+                - Balance-focused exercises spread across the week
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('weight loss') || message.includes('fat burn'))) {
+                return `
+                For weight loss, a weekly yoga chart could include:
+                - Dynamic flows like Sun Salutations on Monday
+                - Core-strengthening poses on Wednesday
+                - Cardio-based flows on Friday
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('balance') || message.includes('stability'))) {
+                return `
+                To improve balance, dedicate part of your weekly yoga routine to:
+                - Tree Pose
+                - Warrior III
+                - Dancer Pose, incorporated into mid-week sessions
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('flexibility') || message.includes('stretch'))) {
+                return `
+                For flexibility, your weekly chart should include:
+                - Deep stretches like Forward Folds
+                - Pigeon Pose
+                - Camel Pose, practiced on days when your body feels more relaxed
+                `;
+            }
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('yoga exercises') || message.includes('flow'))) {
+                return `
+                A weekly yoga flow plan could include:
+                - Monday: Strength poses like Warrior I, Plank, and Chair Pose
+                - Wednesday: Flexibility-focused poses like Forward Folds, Pigeon Pose, and Cobra
+                - Friday: Balance poses like Tree Pose, Half Moon, and Dancer Pose
+                - Sunday: Restorative yoga with Child's Pose, Corpse Pose, and Pranayama breathing
+                `;
+            }
+            
+            else if ((message.includes('week') || message.includes('weekly')) && (message.includes('core') || message.includes('abs'))) {
+                return `
+                A weekly yoga schedule to strengthen the core could include:
+                - Monday: Boat Pose and Plank Pose
+                - Wednesday: Dolphin Plank and Side Plank variations
+                - Friday: Crow Pose and Forearm Stand (for advanced core work)
+                - Sunday: Stretch with Bridge Pose and Sphinx Pose
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('flexibility') || message.includes('stretching routine'))) {
+                return `
+                A weekly stretching routine for flexibility could include:
+                - Monday: Hamstring stretches with Seated Forward Fold and Downward Dog
+                - Wednesday: Hip openers like Pigeon Pose and Butterfly Pose
+                - Friday: Backbends with Camel Pose and Upward Facing Dog
+                - Sunday: Full body stretches with Side Bends and Reclined Twist
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('strength') || message.includes('muscle building'))) {
+                return `
+                For strength and muscle-building, your weekly yoga chart could include:
+                - Monday: Upper body strength with Plank, Chaturanga, and Downward Dog
+                - Wednesday: Lower body strength with Chair Pose, Warrior II, and Crescent Lunge
+                - Friday: Core and arm strength with Boat Pose, Crow Pose, and Side Plank
+                - Sunday: Restorative poses to recover and reset
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('balance') || message.includes('stability exercises'))) {
+                return `
+                A weekly schedule to improve balance could include:
+                - Monday: Tree Pose and Warrior III for basic balance
+                - Wednesday: Half Moon Pose and Eagle Pose for dynamic stability
+                - Friday: Arm balances like Crow Pose and Side Crow (for advanced balance)
+                - Sunday: Restorative balance with Reclined Twist and Seated Forward Fold
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('energy') || message.includes('morning routine'))) {
+                return `
+                A weekly yoga plan to boost energy could include:
+                - Monday: Morning Sun Salutations for full-body activation
+                - Wednesday: Standing poses like Warrior I and Crescent Lunge
+                - Friday: Backbends like Camel Pose and Wheel Pose for a heart-opening boost
+                - Sunday: Gentle flow with Cat-Cow and Supine Twists to reset
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('restorative') || message.includes('relaxation'))) {
+                return `
+                A weekly restorative yoga plan could include:
+                - Monday: Child’s Pose and Reclined Bound Angle Pose
+                - Wednesday: Legs Up the Wall Pose and Corpse Pose
+                - Friday: Supported Bridge Pose and Gentle Spinal Twists
+                - Sunday: Full-body relaxation with Yoga Nidra or Guided Meditation
+                `;
+            }
+            
+            else if ((message.includes('week') || message.includes('weekly')) && (message.includes('advanced') || message.includes('pro'))) {
+                return `
+                A weekly advanced yoga plan could include:
+                - Monday: Handstand practice with Crow Pose and Headstand
+                - Wednesday: Deep backbends with Full Wheel Pose and King Pigeon Pose
+                - Friday: Arm balances like Firefly Pose and Forearm Stand
+                - Sunday: Recovery with restorative yoga and breathing exercises
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('full body') || message.includes('comprehensive'))) {
+                return `
+                A full-body weekly yoga schedule could include:
+                - Monday: Strength-building poses like Chair Pose, Warrior I, and Plank
+                - Wednesday: Flexibility with Forward Folds, Lunges, and Hip Openers
+                - Friday: Core-focused poses like Boat Pose and Dolphin Plank
+                - Sunday: Restorative yoga with Child’s Pose and seated twists
+                `;
+            }
+            
+            else if ((message.includes('weekly') || message.includes('week')) && (message.includes('detox') || message.includes('cleanse'))) {
+                return `
+                A weekly detoxifying yoga plan could include:
+                - Monday: Twisting poses like Revolved Triangle and Twisted Chair Pose
+                - Wednesday: Deep stretches like Forward Fold and Pigeon Pose to release toxins
+                - Friday: Backbends like Camel Pose and Bridge Pose for energy flow
+                - Sunday: Relaxation and cleansing with gentle yoga and Pranayama breathing
+                `;
+            }
+            else if (message.includes('injuries') && message.includes('high-impact sports')) {
+                return "Common injuries in high-impact sports include ligament tears, fractures, and concussions. Proper training, protective gear, and rehabilitation can help prevent and manage these injuries.";
+            }
+            
+            else if (message.includes('recover') && message.includes('ligament injuries')) {
+                return "Recovering from ligament injuries requires rest, physiotherapy, and often surgery. Strengthening exercises and gradual return to activity are key for full recovery.";
+            }
+            
+            else if (message.includes('mental health') && message.includes('athlete performance')) {
+                return "Mental health significantly affects an athlete's performance. Addressing stress, anxiety, and depression through therapy and mindfulness can improve focus and resilience.";
+            }
+            
+            else if (message.includes('overcome') && message.includes('mental block')) {
+                return "Athletes overcome mental blocks by practicing visualization, mindfulness, and working with sports psychologists to reduce performance anxiety.";
+            }
+            
+            else if (message.includes('improve') && message.includes('endurance')) {
+                return "To improve endurance, marathon runners focus on long-distance runs, interval training, and maintaining a balanced diet rich in carbs for energy.";
+            }
+            
+            else if (message.includes('manage stress') && message.includes('tournaments')) {
+                return "Athletes manage stress during tournaments by maintaining a routine, focusing on the process rather than the outcome, and practicing relaxation techniques.";
+            }
+            
+            else if (message.includes('achievements') && message.includes('Olympic history')) {
+                return "Some of the greatest achievements in Olympic history include Usain Bolt's sprinting records and Michael Phelps' 23 gold medals in swimming.";
+            }
+            
+            else if (message.includes('prevent') && message.includes('overtraining')) {
+                return "To prevent overtraining, athletes should balance intense workouts with rest days, focus on proper nutrition, and listen to their bodies to avoid burnout.";
+            }
+            
+            else if (message.includes('technology') && message.includes('injury prevention')) {
+                return "Technology has improved injury prevention in football with tools like GPS trackers, performance analytics, and smart helmets to monitor impacts.";
+            }
+            
+            else if (message.includes('challenges') && message.includes('women in sports')) {
+                return "Challenges faced by women in sports include gender inequality, pay disparity, and lack of media coverage. However, many female athletes are breaking barriers.";
+            }
+            
+            else if (message.includes('balance') && message.includes('physical and mental wellness')) {
+                return "Athletes achieve balance by integrating mindfulness practices, ensuring proper recovery time, and working with mental health professionals to stay focused.";
+            }
+            
+            else if (message.includes('overcome') && message.includes('performance slump')) {
+                return "Top tennis players overcome performance slumps by reviewing match footage, adjusting training routines, and maintaining a positive mindset.";
+            }
+            
+            else if (message.includes('deal with') && message.includes('pressure')) {
+                return "Successful athletes deal with the pressure of public life by setting personal boundaries, focusing on their craft, and working with mental coaches.";
+            }
+            
+            else if (message.includes('diet') && message.includes('sports achievements')) {
+                return "A balanced diet with sufficient protein, healthy fats, and carbs is essential for athletes' recovery and long-term success.";
+            }
+            
+            else if (message.includes('sports psychologist') && message.includes('performance')) {
+                return "A sports psychologist helps athletes enhance performance by improving focus, reducing anxiety, and helping them overcome mental barriers.";
+            }
+            
+            else if (message.includes('evolved') && message.includes('sports medicine')) {
+                return "Sports medicine has evolved with advanced treatments like PRP therapy, MRI scans for accurate diagnoses, and rehab programs tailored to athlete recovery.";
+            }
+            
+            else if (message.includes('comeback stories') && message.includes('sports')) {
+                return "Some of the most inspiring comeback stories in sports include Tiger Woods’ return to golf after injuries and Serena Williams' successful tennis comeback post-maternity.";
+            }
+            
+            else if (message.includes('manage') && message.includes('pressure in competitive sports')) {
+                return "Young athletes manage pressure by focusing on their personal growth, staying organized, and seeking guidance from coaches and mentors.";
+            }
+            
+            else if (message.includes('impact') && message.includes('sleep deprivation')) {
+                return "Sleep deprivation affects athletes by reducing reaction times, impairing focus, and increasing the risk of injuries. Adequate sleep is crucial for peak performance.";
+            }
+            
+            else if (message.includes('set') && message.includes('achieve long-term goals')) {
+                return "Elite athletes set and achieve long-term goals by breaking them into smaller, actionable steps, and constantly reviewing progress with their coaches.";
+            }
+            
+            else if (message.includes('team performance') && message.includes('basketball')) {
+                return "Improving team performance in basketball involves enhancing communication, building team chemistry, and focusing on both offensive and defensive strategies.";
+            }
+            
+            else if (message.includes('challenges') && message.includes('athletes retiring')) {
+                return "Challenges faced by retiring athletes include finding a new identity, financial planning, and transitioning to careers outside of sports.";
+            }
+            
+            else if (message.includes('climate') && message.includes('outdoor sports')) {
+                return "Climate affects outdoor sports performance by altering conditions such as temperature, humidity, and wind, which can impact endurance and concentration.";
+            }
+            
+            else if (message.includes('challenges') && message.includes('hosting major sports event')) {
+                return "Hosting major sports events comes with challenges like infrastructure demands, security concerns, and managing public expectations.";
+            }
+            
+            else if (message.includes('record-breaking') && message.includes('training techniques')) {
+                return "Athletes achieve record-breaking results through innovative training techniques like altitude training, resistance workouts, and cutting-edge recovery methods.";
+            }
+            
+            else if (message.includes('nutrition') && message.includes('recovery time')) {
+                return "Proper nutrition speeds up recovery by supplying muscles with essential nutrients like protein, electrolytes, and vitamins necessary for repair.";
+            }
+            
+            else if (message.includes('psychological challenges') && message.includes('top athletes')) {
+                return "Top athletes face psychological challenges like burnout, fear of failure, and pressure to perform, often seeking help from sports psychologists to cope.";
+            }
+            
+            else if (message.includes('overcome') && message.includes('fear of failure')) {
+                return "Athletes overcome fear of failure by focusing on the process, visualizing success, and learning from their mistakes instead of fearing them.";
+            }
+            
+            else if (message.includes('impact') && message.includes('doping scandals')) {
+                return "Doping scandals tarnish sports achievements by eroding trust, damaging reputations, and leading to disqualification or suspension of athletes.";
+            }
+            
+            else if (message.includes('female athletes') && message.includes('breaking barriers')) {
+                return "Female athletes have broken barriers by achieving success in male-dominated sports, advocating for equal pay, and challenging gender stereotypes.";
+            }
+            
+            else if (message.includes('role') && message.includes('teamwork in football')) {
+                return "Teamwork plays a crucial role in football by fostering collaboration, trust, and communication, leading to improved team dynamics and performance.";
+            }
+            
+            else if (message.includes('adapt') && message.includes('training to prevent injuries')) {
+                return "Athletes adapt training to prevent injuries by incorporating flexibility exercises, strength training, and proper warm-ups to enhance body stability.";
+            }
+            
+            else if (message.includes('effects') && message.includes('burnout')) {
+                return "Burnout can lead to physical exhaustion, loss of motivation, and even injury, which is why rest and mental health care are critical for athletes.";
+            }
+            
+            else if (message.includes('handle') && message.includes('team conflicts')) {
+                return "Successful teams handle conflicts by fostering open communication, resolving issues quickly, and building mutual respect among team members.";
+            }
+            
+            else if (message.includes('role') && message.includes('coaching success')) {
+                return "Coaching plays a pivotal role in athlete success by providing guidance, setting goals, and motivating athletes to reach their full potential.";
+            }
+            
+            else if (message.includes('deal with') && message.includes('personal challenges in sports')) {
+                return "Athletes manage personal challenges by staying focused on their goals, maintaining mental health routines, and seeking support from their coaches or family.";
+            }
+            
+            else if (message.includes('underdog stories') && message.includes('sports history')) {
+                return "Remarkable underdog stories in sports include Leicester City's Premier League win and the 'Miracle on Ice' at the 1980 Winter Olympics.";
+            }
+            
+            else if (message.includes('contribution') && message.includes('sports science to achievements')) {
+                return "Sports science has contributed to achievements through advancements in biomechanics, nutrition, recovery strategies, and performance analysis tools.";
+            }
+            
+            else if (message.includes('recovery techniques') && message.includes('professional athletes')) {
+                return "Professional athletes use recovery techniques like cryotherapy, massage therapy, and active recovery to maintain peak physical condition.";
+            }
+            
+            else if (message.includes('challenges') && message.includes('recovering from major injury')) {
+                return "Recovering from a major injury requires patience, physical therapy, mental resilience, and gradual reintegration into training.";
+            }
+            
+            else if (message.includes('Paralympians') && message.includes('achievements')) {
+                return "Paralympians achieve success through determination, adaptive training, and showcasing incredible athleticism despite physical challenges.";
+            }
+            
+            else if (message.includes('importance') && message.includes('sportsmanship')) {
+                return "Sportsmanship is essential for success in sports as it fosters respect, integrity, and fair play, creating a positive competitive environment.";
+            }
+            
+            else if (message.includes('mentor') && message.includes('young athletes')) {
+                return "Mentors guide young athletes by teaching skills, instilling discipline, and helping them navigate the pressures of competitive sports.";
+            }
+            
+            else if (message.includes('role') && message.includes('sports academies in youth')) {
+                return "Sports academies help young athletes achieve excellence by providing structured training, professional"
+            }
+            
+            
+            else if (message.includes('greatest athletes') && message.includes('Olympics')) {
+                return "Some of the greatest athletes in Olympic history include Michael Phelps, Usain Bolt, and Carl Lewis, known for their record-breaking performances.";
+            }
+            
+            else if (message.includes('Olympic records') && message.includes('swimming')) {
+                return "Michael Phelps holds the record for the most Olympic gold medals in swimming, with a total of 23 golds won during his Olympic career.";
+            }
+            
+            else if (message.includes('most memorable moments') && message.includes('Olympics')) {
+                return "Memorable moments in Olympic history include Usain Bolt's 100m sprint in 2008 and the 'Miracle on Ice' hockey match in 1980.";
+            }
+            
+            else if (message.includes('countries') && message.includes('Olympics')) {
+                return "Countries like the USA, China, and Russia have historically dominated the Olympic medal tally, showcasing their strength in various sports.";
+            }
+            
+            else if (message.includes('female athletes') && message.includes('Olympics')) {
+                return "Female athletes like Simone Biles and Katie Ledecky have achieved remarkable success at the Olympics, breaking records and inspiring future generations.";
+            }
+            
+            else if (message.includes('Olympic Games') && message.includes('history')) {
+                return "The modern Olympic Games began in 1896 in Athens, Greece, with just 13 countries participating. Today, they feature over 200 nations.";
+            }
+            
+            else if (message.includes('challenges') && message.includes('Olympics')) {
+                return "Challenges for athletes in the Olympics include intense competition, pressure to perform, and the physical toll of training and events.";
+            }
+            
+            else if (message.includes('Indian cricket history') && message.includes('World Cup')) {
+                return "India won its first Cricket World Cup in 1983, defeating the West Indies in the final, marking a significant moment in Indian cricket history.";
+            }
+            
+            else if (message.includes('greatest cricketers') && message.includes('history')) {
+                return "Some of the greatest cricketers in history include Sachin Tendulkar, Sir Vivian Richards, and Brian Lara, known for their exceptional skills.";
+            }
+            
+            else if (message.includes('record-breaking innings') && message.includes('ODI cricket')) {
+                return "Sachin Tendulkar scored the highest individual score in ODI cricket with 200 runs not out against South Africa in 2010.";
+            }
+            
+            else if (message.includes('iconic matches') && message.includes('cricket')) {
+                return "Iconic matches in cricket include the 2007 T20 World Cup final, where India defeated Pakistan, and the 2011 World Cup final, where India beat Sri Lanka.";
+            }
+            
+            else if (message.includes('cricket achievements') && message.includes('World Cup')) {
+                return "Cricket achievements in the World Cup include Australia's record five titles and India becoming the first team to win the World Cup on home soil in 2011.";
+            }
+            
+            else if (message.includes('impact') || message.includes('T20 cricket')) {
+                return "The advent of T20 cricket has transformed the game, increasing its popularity and attracting new fans worldwide with its fast-paced format.";
+            }
+            
+            else if (message.includes('challenges') && message.includes('Indian cricket')) {
+                return "Challenges faced by Indian cricket include balancing domestic leagues with international commitments and addressing performance pressures.";
+            }
+            
+            else if (message.includes('notable partnerships') && message.includes('cricket')) {
+                return "Notable batting partnerships in cricket include the 392-run partnership between Sachin Tendulkar and Sourav Ganguly against Sri Lanka in 1999.";
+            }
+            
+            else if (message.includes('greatest bowling figures') && message.includes('ODI cricket')) {
+                return "The greatest bowling figures in ODI cricket are held by Chaminda Vaas, who took 8 wickets for 19 runs against Zimbabwe in 2001.";
+            }
+            
+            else if (message.includes('women cricketers') && message.includes('achievements')) {
+                return "Women cricketers like Mithali Raj and Jhulan Goswami have achieved remarkable milestones, including leading the Indian women's team in World Cups.";
+            }
+            
+            else if (message.includes('cricket rivalries') && message.includes('India and Pakistan')) {
+                return "The cricket rivalry between India and Pakistan is one of the most intense in sports, with both teams having a rich history of competitive matches.";
+            }
+            
+            else if (message.includes('Olympics') && message.includes('medal tally')) {
+                return "The Olympic medal tally ranks countries based on the number of gold, silver, and bronze medals won, with the USA often leading the count.";
+            }
+            else if (message.includes('Olympics') || message.includes('medal tally')) {
+                return "The Olympic medal tally ranks countries based on the number of gold, silver, and bronze medals won, with the USA often leading the count.";
+            }
+            
+            else if (message.includes('most decorated Olympian') && message.includes('history')) {
+                return "Michael Phelps is the most decorated Olympian in history, with a total of 28 medals, including 23 golds, across four Olympic Games.";
+            }
+            
+            else {
+                return "I'm here to help with fitness, sports, and yoga. Could you please clarify your question?";
+            }
+        }
+    </script>
+</body>
+</html>

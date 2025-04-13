@@ -1,0 +1,68 @@
+body {
+    padding-top: 60px;
+}
+.chat-container {
+    height: 300px;
+    overflow-y: auto;
+}
+
+#chatMessages {
+    height: 250px;
+    overflow-y: auto;
+}
+
+.navbar-nav .nav-item {
+    background-color: #5f45bd;
+    margin-right: 10px;
+}
+
+.navbar-nav .nav-link {
+    background-color: #d9e4f1;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff;
+}
+
+.dropdown-menu {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    color: rgb(50, 57, 122);
+}
+
+#motivationalTip {
+    font-style: italic;
+    color: #472da5;
+}
+
+@media (max-width: 992px) {
+    .navbar-collapse {
+        transition: height 0.3s ease;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

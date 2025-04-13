@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature-Rich Chat UI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-md-4 col-lg-3 sidebar p-0">
+                <div class="p-3 bg-light">
+                    
+                    <h5 class="mb-3">Chat with us</h5>
+                </div>
+                <ul class="list-group list-group-flush overflow-auto bg-secondary" style="height: calc(100% - 120px);">
+                    <li class="list-group-item " aria-current="true">
+                        <div class="d-flex align-items-center">
+                            <img src="../shared/images/image.png" alt="Avatar" class="rounded-circle me-2" width="50" height="50">
+                            <div>
+                                <a class="link-offset-2 link-underline link-underline-opacity-0" href="chat.html"><h6 class="mb-0">FIT BOT</h6></a>
+                                <small>Baccha free ka gayan le le angragi me</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item ">
+                        <div class="d-flex align-items-center">
+                            <img src=".//images/dietbot.jpg" alt="Avatar" class="rounded-circle me-2" width="50" height="50">
+                            <div>
+                                <a class="link-offset-2 link-underline link-underline-opacity-0" href="chat.html"> <h6 class="mb-0">DIET BOT</h6></a>
+                                <small>Let's catch up for a run tomorrow!</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item active">
+                        <div class="d-flex align-items-center">
+                            <img src=".//images/aid bot.jpg" alt="Avatar" class="rounded-circle me-2" width="50" height="50">
+                            <div>
+                                <h6 class="mb-0">AID BOT</h6>
+                                
+                                <small>Can you share that diet plan?</small>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-8 col-lg-9 main-chat p-0">
+                <div class="chat-header p-3 bg-light border-bottom">
+                    
+                    <div class="d-flex align-items-center">
+                        <img src="../shared/images/dietbot.jpg" alt="Avatar" class="rounded-circle me-2" width="50" height="50">
+                        <div>
+                            <h5 class="mb-0">AID BOT</h5>
+                            
+                            <small class="text-success">Online</small>
+                            
+                        </div>
+                        <div class=" position-absolute top-2 end-0">
+                        
+                            <a  href="../before_login/homepage.html"><button class="btn btn-secondary " type="button">HOME</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-messages bg-secondary p-3 overflow-auto" style="height: calc(100% - 130px);">
+                    <div class="message received">
+                        <p>Hey, how's your workout going?</p>
+                        <small class="text-muted">10:30 AM</small>
+                    </div>
+                    <div class="message sent">
+                        <p>It's going great! Just finished a 5K run. How about you?</p>
+                        <small class="text-muted">10:32 AM</small>
+                    </div>
+                    <div class="message received">
+                        <p>Wow, that's impressive! I'm about to start my yoga session. Any tips for a good cool-down routine?</p>
+                        <small class="text-muted">10:35 AM</small>
+                    </div>
+                    <div class="message sent">
+                        <p>Absolutely! After your yoga, try some light stretching focusing on your hamstrings and back. Also, don't forget to hydrate!</p>
+                        <small class="text-muted">10:38 AM</small>
+                    </div>
+                </div>
+                <div class="chat-input p-3 bg-light border-top">
+                    <form id="chat-form" class="d-flex">
+                        <input type="text" id="message-input" class="form-control me-2" placeholder="Type your message...">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('chat-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var input = document.getElementById('message-input');
+            var message = input.value.trim();
+            if (message) {
+                var chatMessages = document.querySelector('.chat-messages');
+                var newMessage = document.createElement('div');
+                newMessage.className = 'message sent';
+                newMessage.innerHTML = '<p>' + message + '</p><small class="text-muted">' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '</small>';
+                chatMessages.appendChild(newMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                input.value = '';
+                
+                // Simulate bot response
+                setTimeout(function() {
+                    var botMessage = document.createElement('div');
+                    botMessage.className = 'message received';
+                    var botResponse = getBotResponse(message);
+                    botMessage.innerHTML = '<p>' + botResponse + '</p><small class="text-muted">' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '</small>';
+                    chatMessages.appendChild(botMessage);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        });
+
+        function getBotResponse(message) {
+            message = message.toLowerCase();
+            if (message.includes('workout') || message.includes('exercise')) {
+                return "For an effective workout, ensure you warm up properly, maintain good form, and gradually increase intensity. Don't forget to cool down and stretch afterwards!";
+            } 
+            else if (message.includes('about') || message.includes('yoga')) {
+                return "A balanced diet is key to fitness. Ensure you're getting a good mix of proteins, carbs, and healthy fats. Stay hydrated and consider consulting a nutritionist for personalized advice.";
+            } 
+            else if (message.includes('about') || message.includes('exercise')) {
+                return "A balanced diet is key to fitness. Ensure you're getting a good mix of proteins, carbs, and healthy fats. Stay hydrated and consider consulting a nutritionist for personalized advice.";
+            } 
+            else if (message.includes('common injuries') && message.includes('yoga')) {
+                return "Common yoga-related injuries include wrist strain, lower back pain, and hamstring pulls. Proper alignment and mindful practice can help prevent these issues.";
+            }
+            
+            else if (message.includes('avoid') && message.includes('injuries in yoga')) {
+                return "To avoid injuries in yoga, focus on proper form, warm up before sessions, and avoid pushing your body beyond its limits. Use props for support if needed.";
+            }
+            
+            else if (message.includes('recover') && message.includes('yoga injuries')) {
+                return "Recovering from yoga injuries requires rest, gentle stretches, and sometimes physical therapy. It's important to resume practice gradually and mindfully.";
+            }
+            
+            else if (message.includes('overcome') && message.includes('back pain in yoga')) {
+                return "To overcome back pain in yoga, focus on strengthening your core, using modifications, and avoiding poses that strain the lower back.";
+            }
+            
+            else if (message.includes('prevent') && message.includes('wrist pain in yoga')) {
+                return "To prevent wrist pain during yoga, distribute your weight evenly across your hands, engage your core, and use wrist-friendly modifications for weight-bearing poses.";
+            }
+            
+            else if (message.includes('exercise') && message.includes('prevent knee injuries')) {
+                return "To prevent knee injuries during exercise, focus on strengthening the muscles around the knee, avoid overloading, and ensure proper alignment in movements.";
+            }
+            
+            else if (message.includes('common injuries') && message.includes('strength training')) {
+                return "Common strength training injuries include muscle strains, joint pain, and tendonitis. Proper warm-up, good form, and gradually increasing weight can help avoid these.";
+            }
+            
+            else if (message.includes('stretch') && message.includes('prevent injuries')) {
+                return "Stretching before and after exercise helps prevent injuries by improving flexibility, increasing blood flow to muscles, and reducing muscle stiffness.";
+            }
+            
+            else if (message.includes('deal with') && message.includes('muscle soreness')) {
+                return "To deal with muscle soreness after exercise, try foam rolling, light stretching, staying hydrated, and allowing proper rest and recovery time.";
+            }
+            
+            else if (message.includes('injuries') && message.includes('high-intensity workouts')) {
+                return "Injuries in high-intensity workouts like HIIT can include sprains, muscle tears, and joint strain. Proper warm-up, gradual progression, and form checks are essential to prevent them.";
+            }
+            
+            else if (message.includes('overcome') && message.includes('shoulder pain in yoga')) {
+                return "Overcome shoulder pain in yoga by avoiding weight-bearing poses that strain the shoulders, and focusing on stretches and poses that strengthen the surrounding muscles.";
+            }
+            
+            else if (message.includes('role') && message.includes('rest in injury prevention')) {
+                return "Rest plays a crucial role in injury prevention by allowing muscles and joints to recover, reducing the risk of overuse injuries, and preventing burnout.";
+            }
+            
+            else if (message.includes('importance') && message.includes('warming up before exercise')) {
+                return "Warming up before exercise is essential to prepare your muscles, improve flexibility, and reduce the risk of injury by gradually increasing blood flow and heart rate.";
+            }
+            
+            else if (message.includes('proper alignment') && message.includes('yoga')) {
+                return "Proper alignment in yoga ensures that your body is moving safely through poses, reducing strain on muscles and joints, and preventing injuries like sprains or strains.";
+            }
+            
+            else if (message.includes('prevent') && message.includes('lower back injuries')) {
+                return "To prevent lower back injuries during exercise, focus on core strengthening, use proper lifting techniques, and avoid movements that place undue stress on the back.";
+            }
+            
+            else if (message.includes('deal with') && message.includes('knee pain in exercise')) {
+                return "Deal with knee pain during exercise by adjusting your form, avoiding high-impact movements, and incorporating strengthening exercises for the muscles around the knee.";
+            }
+            
+            else if (message.includes('recover') && message.includes('muscle strain from yoga')) {
+                return "Recovering from a muscle strain in yoga involves rest, gentle stretching, and gradually easing back into your practice once the pain subsides.";
+            }
+            
+            else if (message.includes('overcome') && message.includes('neck pain in yoga')) {
+                return "To overcome neck pain in yoga, focus on proper head alignment, avoid looking up during poses, and engage your core to relieve tension from your neck.";
+            }
+            
+            else if (message.includes('importance') && message.includes('cooling down after exercise')) {
+                return "Cooling down after exercise is important to gradually lower your heart rate, reduce muscle stiffness, and prevent injury by stretching and relaxing the muscles.";
+            }
+            
+            else if (message.includes('recover') && message.includes('shoulder injury from exercise')) {
+                return "Recovering from a shoulder injury requires rest, physical therapy, and avoiding exercises that aggravate the injury until the shoulder is fully healed.";
+            }
+            
+            else if (message.includes('importance') && message.includes('hydration during exercise')) {
+                return "Hydration is essential during exercise to maintain performance, regulate body temperature, and prevent cramps or dehydration-related injuries.";
+            }
+            
+            else if (message.includes('deal with') && message.includes('hip pain in yoga')) {
+                return "Deal with hip pain in yoga by avoiding deep hip stretches, using modifications for poses, and focusing on strengthening the surrounding muscles for stability.";
+            }
+            
+            else if (message.includes('common injuries') && message.includes('HIIT workouts')) {
+                return "Common injuries in HIIT workouts include ankle sprains, shin splints, and muscle strains. Proper form and gradual intensity increases can help avoid these injuries.";
+            }
+            
+            else if (message.includes('recover') && message.includes('ankle injury in yoga')) {
+                return "To recover from an ankle injury in yoga, rest the ankle, avoid weight-bearing poses, and gradually reintroduce movement once healed, with modifications as needed.";
+            }
+            
+            else if (message.includes('prevent') && message.includes('hamstring injuries')) {
+                return "To prevent hamstring injuries, focus on proper warm-up, avoid overstretching, and incorporate strengthening exercises for both flexibility and stability.";
+            }
+            
+            else if (message.includes('overcome') && message.includes('foot pain in yoga')) {
+                return "Overcome foot pain in yoga by using proper footwear or mats, focusing on even weight distribution, and avoiding poses that put too much pressure on the feet.";
+            }
+            
+            else if (message.includes('deal with') && message.includes('elbow pain in exercise')) {
+                return "Deal with elbow pain during exercise by avoiding repetitive strain, using proper form, and incorporating strengthening exercises for the forearm and upper arm muscles.";
+            }
+            else if (message.includes('injuries') || message.includes('high-impact sports')) {
+                return "Common injuries in high-impact sports include ligament tears, fractures, and concussions. Proper training, protective gear, and rehabilitation can help prevent and manage these injuries.";
+            }
+            
+            else if (message.includes('common injuries') || message.includes('yoga practice')) {
+                return "Common yoga-related injuries include wrist strain, lower back pain, and hamstring pulls. Proper alignment and mindful practice can help prevent these injuries.";
+            }
+            
+            else if (message.includes('prevent') && message.includes('yoga injuries')) {
+                return "To prevent yoga injuries, focus on proper alignment, avoid overstretching, and use props to support poses. Always warm up before practice.";
+            }
+            
+            else if (message.includes('recover') && message.includes('ligament injuries')) {
+                return "Recovering from ligament injuries requires rest, physiotherapy, and sometimes surgery. Strengthening exercises and a gradual return to activity are key for full recovery.";
+            }
+            
+            else if (message.includes('overcome') && message.includes('back pain in yoga')) {
+                return "To overcome back pain in yoga, focus on strengthening your core, using modifications, and avoiding poses that strain the lower back. Stretching and alignment are key.";
+            }
+            
+            else if (message.includes('prevent') && message.includes('knee injuries')) {
+                return "To prevent knee injuries during yoga or exercise, engage in strength training for your leg muscles, maintain proper form, and avoid overloading the knees.";
+            }
+            
+            else if (message.includes('recover') && message.includes('yoga injuries')) {
+                return "Recovering from yoga injuries involves rest, gradual reintroduction of movement, and focusing on alignment. Physical therapy can help with faster recovery.";
+            }
+            
+            else if (message.includes('deal with') && message.includes('wrist pain in yoga')) {
+                return "To deal with wrist pain during yoga, distribute weight evenly through the hands, engage your core, and use props like wrist wedges to reduce pressure.";
+            }
+            
+            else if (message.includes('common injuries') || message.includes('strength training')) {
+                return "Common injuries in strength training include muscle strains, joint pain, and tendonitis. Always use proper form and warm up before lifting weights to prevent these injuries.";
+            }
+            
+            else if (message.includes('prevent') && message.includes('hamstring injuries')) {
+                return "To prevent hamstring injuries during yoga or exercise, make sure to warm up properly, avoid overstretching, and focus on strengthening the hamstring muscles.";
+            }
+            
+            else if (message.includes('recover') && message.includes('muscle strain')) {
+                return "Recovering from a muscle strain requires rest, ice, and gentle stretching. Gradually reintroducing movement and strengthening exercises helps prevent future injuries.";
+            }
+            
+            else if (message.includes('overcome') && message.includes('shoulder pain in yoga')) {
+                return "Overcome shoulder pain in yoga by avoiding weight-bearing poses that strain the shoulders, focusing on proper alignment, and doing shoulder-strengthening exercises.";
+            }
+            
+            else if (message.includes('prevent') && message.includes('back injuries')) {
+                return "Prevent back injuries in yoga by engaging your core, maintaining proper alignment in all poses, and avoiding forward bends if you have a history of back pain.";
+            }
+            
+            else if (message.includes('deal with') && message.includes('hip pain in yoga')) {
+                return "To deal with hip pain in yoga, avoid deep hip stretches and use props like blocks for support. Focus on building strength in the surrounding muscles.";
+            }
+            
+            else if (message.includes('importance') && message.includes('warming up before exercise')) {
+                return "Warming up before exercise is important to increase blood flow, improve flexibility, and reduce the risk of injury by preparing the muscles and joints for activity.";
+            }
+            
+            else if (message.includes('recover') && message.includes('ankle injury')) {
+                return "Recovering from an ankle injury in yoga requires rest, elevation, and gentle stretches. Gradually return to weight-bearing poses with modifications as the ankle heals.";
+            }
+            
+            else if (message.includes('prevent') && message.includes('wrist injuries in yoga')) {
+                return "To prevent wrist injuries in yoga, distribute weight evenly across the hands, engage the forearm muscles, and use wrist-friendly modifications in weight-bearing poses.";
+            }
+            
+            else if (message.includes('role') && message.includes('rest in injury prevention')) {
+                return "Rest plays a crucial role in injury prevention by allowing muscles and joints to recover, reducing the risk of overuse injuries, and preventing fatigue-related injuries.";
+            }
+            
+            else if (message.includes('importance') && message.includes('cool down after exercise')) {
+                return "Cooling down after exercise is essential to gradually lower your heart rate, prevent muscle stiffness, and reduce the risk of post-exercise injuries.";
+            }
+            
+            else if (message.includes('importance') && message.includes('hydration during exercise')) {
+                return "Staying hydrated during exercise is critical for maintaining performance, regulating body temperature, and preventing muscle cramps or dehydration-related injuries.";
+            }
+            else if (message.includes('injuries') || message.includes('high-impact sports')) {
+                return "Common injuries in high-impact sports include ligament tears, fractures, and concussions. Proper training, protective gear, and rehabilitation can help prevent and manage these injuries.";
+            }
+            
+            else if (message.includes('yoga') || message.includes('injuries in yoga')) {
+                return "Yoga injuries often include wrist pain, lower back discomfort, and hamstring strains. Practicing with proper alignment and using props can reduce injury risk.";
+            }
+            
+            else if (message.includes('recover') || message.includes('muscle strain')) {
+                return "Recovery from muscle strain requires rest, gentle stretching, and gradual reintroduction of movement. Ice and anti-inflammatory treatments can also aid recovery.";
+            }
+            
+            else if (message.includes('prevent') || message.includes('knee injuries')) {
+                return "To prevent knee injuries, focus on strengthening the muscles around the knee, maintaining proper alignment, and avoiding excessive stress on the joints.";
+            }
+            
+            else if (message.includes('back pain') || message.includes('yoga injuries')) {
+                return "Back pain from yoga can be prevented by engaging your core, maintaining proper posture, and avoiding poses that put excessive strain on the lower back.";
+            }
+            
+            else if (message.includes('wrist pain') || message.includes('yoga injuries')) {
+                return "To prevent wrist pain in yoga, distribute your weight evenly, engage your arms and core, and consider using wrist supports or blocks during poses.";
+            }
+            
+            else if (message.includes('ankle injuries') || message.includes('exercise injuries')) {
+                return "Ankle injuries can be avoided by improving balance, using proper footwear, and performing ankle-strengthening exercises before engaging in intense activity.";
+            }
+            
+            else if (message.includes('shoulder injuries') || message.includes('upper body workouts')) {
+                return "Prevent shoulder injuries by maintaining proper form during exercises, avoiding overloading, and performing regular flexibility and strength training exercises.";
+            }
+            
+            else if (message.includes('hamstring strain') || message.includes('stretching injuries')) {
+                return "Hamstring strains are common in stretching and can be prevented by warming up properly, gradually increasing flexibility, and avoiding overstretching.";
+            }
+            
+            else if (message.includes('ligament injuries') || message.includes('recovery time')) {
+                return "Recovery from ligament injuries can take several weeks to months, involving rest, physiotherapy, and in some cases, surgical intervention.";
+            }
+            
+            else if (message.includes('prevent') || message.includes('sports injuries')) {
+                return "Sports injuries can be prevented through proper warm-ups, using protective gear, following a balanced training schedule, and listening to your body's limits.";
+            }
+            
+            else if (message.includes('overtraining') || message.includes('injury prevention')) {
+                return "Overtraining increases the risk of injury. To prevent it, balance intense workouts with adequate rest, proper nutrition, and gradual progression in training.";
+            }
+            
+            else if (message.includes('injuries') || message.includes('cross-training')) {
+                return "Cross-training helps prevent overuse injuries by varying workouts, targeting different muscle groups, and reducing repetitive strain on the same areas.";
+            }
+            
+            else if (message.includes('shin splints') || message.includes('running injuries')) {
+                return "Shin splints are common in runners and can be avoided by using proper footwear, increasing mileage gradually, and strengthening lower leg muscles.";
+            }
+            
+            else if (message.includes('hip pain') || message.includes('exercise injuries')) {
+                return "Hip pain during exercise can be prevented by strengthening the hip muscles, maintaining flexibility, and ensuring proper form in movements.";
+            }
+            
+            else if (message.includes('neck strain') || message.includes('yoga poses')) {
+                return "Neck strain in yoga can be avoided by avoiding poses that compress the neck, maintaining proper head alignment, and engaging the core during movements.";
+            }
+            
+            else if (message.includes('stress fractures') || message.includes('high-impact training')) {
+                return "Stress fractures occur in high-impact sports and can be prevented by using proper footwear, balancing workouts, and allowing sufficient recovery time.";
+            }
+            
+            else if (message.includes('muscle soreness') || message.includes('post-workout recovery')) {
+                return "Post-workout muscle soreness can be reduced by cooling down properly, staying hydrated, and incorporating active recovery exercises such as light stretching.";
+            }
+            
+            else if (message.includes('tendinitis') || message.includes('repetitive strain injuries')) {
+                return "Tendinitis, often caused by repetitive strain, can be managed by reducing the intensity of repetitive motions, stretching regularly, and applying ice to reduce inflammation.";
+            }
+            
+            else if (message.includes('joint pain') || message.includes('exercise') || message.includes('injury')) {
+                return "Joint pain from exercise can be reduced by strengthening the surrounding muscles, maintaining proper form, and ensuring adequate warm-ups before high-intensity movements.";
+            }
+            
+             else {
+                return "I'm here to help with fitness, sports, and yoga. Could you please clarify your question?";
+            }
+        }
+    </script>
+</body>
+</html>

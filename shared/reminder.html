@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga & Exercise Reminder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="reminder.css">
+</head>
+<body>
+    <div class="container-fluid p-4 bg-light">
+        <h1 class="text-center mb-4">Yoga & Exercise Reminder</h1>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h5 mb-0">Reminder Cards</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="reminderCards">
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100 reminder-card" tabindex="0" aria-label="Yoga Routine Reminder">
+                                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b" class="card-img-top" alt="Yoga Pose">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Morning Yoga</h5>
+                                        <p class="card-text">Start your day with a refreshing yoga session.</p>
+                                        <p class="card-text"><small class="text-muted">Time: 7:00 AM</small></p>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="yoga1">
+                                            <label class="form-check-label" for="yoga1">Mark as completed</label>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-sm btn-outline-primary">Edit</button>
+                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100 reminder-card" tabindex="0" aria-label="Exercise Routine Reminder">
+                                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438" class="card-img-top" alt="Exercise Equipment">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Evening Workout</h5>
+                                        <p class="card-text">Energize yourself with an evening exercise routine.</p>
+                                        <p class="card-text"><small class="text-muted">Time: 6:00 PM</small></p>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="exercise1">
+                                            <label class="form-check-label" for="exercise1">Mark as completed</label>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-sm btn-outline-primary">Edit</button>
+                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h2 class="h5 mb-0">Schedule Management</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="calendar"></div>
+                        <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addReminderModal">Add New Reminder</button>
+                    </div>
+                </div>
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h2 class="h5 mb-0">Customization Options</h2>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="reminderFrequency" class="form-label">Reminder Frequency</label>
+                                <select class="form-select" id="reminderFrequency">
+                                    <option value="daily">Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="customNotes" class="form-label">Custom Notes</label>
+                                <textarea class="form-control" id="customNotes" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Preferences</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addReminderModal" tabindex="-1" aria-labelledby="addReminderModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addReminderModalLabel">Add New Reminder</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="reminderTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="reminderTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reminderDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="reminderDescription" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reminderTime" class="form-label">Time</label>
+                            <input type="time" class="form-control" id="reminderTime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reminderDate" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="reminderDate" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save Reminder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+html, body {
+    height: 100%;
+}
+
+.sidebar {
+    border-right: 1px solid #dee2e6;
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    max-width: 70%;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    position: relative;
+}
+
+.message p {
+    margin-bottom: 0.25rem;
+}
+
+.message.received {
+    align-self: flex-start;
+    background-color: #f1f0f0;
+}
+
+.message.sent {
+    align-self: flex-end;
+    background-color: #dcf8c6;
+}
+
+.message small {
+    font-size: 0.75rem;
+    position: absolute;
+    bottom: 0.25rem;
+    right: 1rem;
+}
+
+@media (max-width: 767.98px) {
+    .sidebar {
+        height: 30vh;
+        overflow-y: auto;
+    }
+    
+    .main-chat {
+        height: 70vh;
+    }
+}
+
+@media (min-width: 768px) {
+    .sidebar, .main-chat {
+        height: 100vh;
+    }
+}
+
+/* Animations */
+.message {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Accessibility */
+.btn:focus, .form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

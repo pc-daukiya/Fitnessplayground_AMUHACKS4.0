@@ -1,0 +1,96 @@
+body {
+    padding-top: 60px;
+}
+.chat-container {
+    height: 300px;
+    overflow-y: auto;
+}
+
+#chatMessages {
+    height: 250px;
+    overflow-y: auto;
+}
+
+.navbar-nav .nav-item {
+    background-color: #d9e4f1;
+    margin-right: 10px;
+}
+
+.nav-item:hover{
+    box-shadow: 0 0.5rem 3rem rgba(24, 70, 99, 0.15);
+}
+.navbar-nav .nav-link {
+    background-color: #d9e4f1;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #0379f7;
+
+}
+
+.dropdown-menu {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    color: rgb(50, 57, 122);
+}
+
+#motivationalTip {
+    font-style: italic;
+    color: #472da5;
+}
+
+@media (max-width: 992px) {
+    .navbar-collapse {
+        transition: height 0.3s ease;
+    }
+}
+
+/* sports section  */
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.profile-section {
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.social-icons a {
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ffc107 !important;
+}
+
+@media (max-width: 768px) {
+    .profile-section .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

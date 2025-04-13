@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature-Rich Chat UI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-md-4 col-lg-3 sidebar p-0">
+                <div class="p-3 bg-light">
+                    
+                    <h5 class="mb-3">Chat with us</h5>
+                </div>
+                <ul class="list-group list-group-flush overflow-auto bg-secondary" style="height: calc(100% - 120px);">
+                    <li class="list-group-item " aria-current="true">
+                        <div class="d-flex align-items-center">
+                            <img src="../shared/images/image.png" alt="Avatar" class="rounded-circle me-2" width="50" height="50">
+                            <div>
+                                <a class="link-offset-2 link-underline link-underline-opacity-0" href="chat.html"><h6 class="mb-0">FIT BOT</h6></a>
+                                <small>Baccha free ka gayan le le angragi me</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item active">
+                        <div class="d-flex align-items-center">
+                            <img src=".//images/dietbot.jpg" alt="Avatar" class="rounded-circle me-2" width="50" height="50">
+                            <div>
+                               <h6 class="mb-0">DIET BOT</h6>
+                                <small>Let's catch up for a run tomorrow!</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="d-flex align-items-center">
+                            <img src=".//images/aid bot.jpg" alt="Avatar" class="rounded-circle me-2" width="50" height="50">
+                            <div>
+                                <a class="link-offset-2 link-underline link-underline-opacity-0" href="aid.html"><h6 class="mb-0">AID BOT</h6></a>
+                                
+                                <small>Can you share that diet plan?</small>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-8 col-lg-9 main-chat p-0">
+                <div class="chat-header p-3 bg-light border-bottom">
+                    
+                    <div class="d-flex align-items-center">
+                        <img src="../shared/images/dietbot.jpg" alt="Avatar" class="rounded-circle me-2" width="50" height="50">
+                        <div>
+                            <h5 class="mb-0">DIET BOT</h5>
+                            
+                            <small class="text-success">Online</small>
+                            
+                        </div>
+                        
+                        <div class=" position-absolute top-2 end-0">
+                        
+                            <a  href="../before_login/homepage.html"><button class="btn btn-secondary " type="button">HOME</button></a>
+                        </div>
+
+                        
+                    </div>
+                </div>
+                <div class="chat-messages bg-secondary p-3 overflow-auto" style="height: calc(100% - 130px);">
+                    <div class="message received">
+                        <p>Hey, how's your workout going?</p>
+                        <small class="text-muted">10:30 AM</small>
+                    </div>
+                    <div class="message sent">
+                        <p>It's going great! Just finished a 5K run. How about you?</p>
+                        <small class="text-muted">10:32 AM</small>
+                    </div>
+                    <div class="message received">
+                        <p>Wow, that's impressive! I'm about to start my yoga session. Any tips for a good cool-down routine?</p>
+                        <small class="text-muted">10:35 AM</small>
+                    </div>
+                    <div class="message sent">
+                        <p>Absolutely! After your yoga, try some light stretching focusing on your hamstrings and back. Also, don't forget to hydrate!</p>
+                        <small class="text-muted">10:38 AM</small>
+                    </div>
+                </div>
+                <div class="chat-input p-3 bg-light border-top">
+                    <form id="chat-form" class="d-flex">
+                        <input type="text" id="message-input" class="form-control me-2" placeholder="Type your message...">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('chat-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var input = document.getElementById('message-input');
+            var message = input.value.trim();
+            if (message) {
+                var chatMessages = document.querySelector('.chat-messages');
+                var newMessage = document.createElement('div');
+                newMessage.className = 'message sent';
+                newMessage.innerHTML = '<p>' + message + '</p><small class="text-muted">' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '</small>';
+                chatMessages.appendChild(newMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                input.value = '';
+                
+                // Simulate bot response
+                setTimeout(function() {
+                    var botMessage = document.createElement('div');
+                    botMessage.className = 'message received';
+                    var botResponse = getBotResponse(message);
+                    botMessage.innerHTML = '<p>' + botResponse + '</p><small class="text-muted">' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '</small>';
+                    chatMessages.appendChild(botMessage);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        });
+
+        function getBotResponse(message) {
+            message = message.toLowerCase();
+            if (message.includes('hi') || message.includes('hello')) {
+                return "hi i am your diet bot how can i help you.";
+            } 
+             if (message.includes('about') && message.includes('diet plan')) {
+                return "A diet planor nutrition plan is a structured guide that outlines the types and amounts of food an individual should eat to achieve specific health and fitness goals. It helps ensure balanced nutrition, proper calorie intake, and provides the right mix of macronutrients (proteins, carbohydrates, and fats) and micronutrients (vitamins and minerals). Whether the aim is weight loss, muscle gain, or simply maintaining a healthy lifestyle, a well-designed diet plan supports overall well-being by encouraging healthy eating habits and lifestyle changes.";
+            } 
+       else if (message.includes('daily') && message.includes('diet plan')) {
+                return `It looks like you're asking for a daily diet plan! Here's a quick overview to help you maintain balanced nutrition throughout the day:
+                (1).  Breakfast: Start your day with a combination of protein and complex carbs, like oatmeal with fruits and a boiled egg. \r
+                (2).  Mid-Morning Snack: A handful of nuts (like almonds or walnuts) with a piece of fruit.
+                (3).  Lunch: A balanced meal with lean proteins (chicken or tofu), whole grains (brown rice or quinoa), and vegetables.
+                (4).  Afternoon Snack: Greek yogurt or cottage cheese with some fresh vegetable sticks.
+                (5).  Dinner: Finish your day with a light, protein-rich meal such as grilled fish or lentils, along with some veggies and a small portion of healthy carbs like sweet potatoes.
+                (6).  Hydration: Drink plenty of water throughout the day to stay hydrated.`;
+
+}
+       else if (message.includes('weekly') || message.includes('diet plan') || message.includes('week') || message.includes('diet plans')) {
+                return  `Monday's Diet Plan:
+1. Breakfast: Scrambled eggs with spinach and whole-wheat toast
+2. Lunch: Grilled chicken salad with mixed greens, cherry tomatoes, and olive oil dressing
+3. Snack: A handful of almonds and an apple
+4. Dinner: Baked salmon with quinoa and steamed broccoli---->
+Tuesday's Diet Plan:
+1. Breakfast: Greek yogurt with mixed berries and chia seeds
+2. Lunch: Lentil soup with a side of whole-grain bread
+3. Snack: Carrot sticks with hummus
+4. Dinner: Stir-fried tofu with brown rice and sautéed vegetables------->
+Wednesday's Diet Plan:
+1. Breakfast: Oatmeal with sliced banana and a tablespoon of peanut butter
+2. Lunch: Turkey wrap with whole-wheat tortilla, avocado, and leafy greens
+3. Snack: A handful of walnuts and a pear
+4. Dinner: Grilled chicken breast with roasted sweet potatoes and green beans------>
+Thursday's Diet Plan:
+1. Breakfast: Smoothie with spinach, banana, protein powder, and almond milk
+2. Lunch: Quinoa salad with chickpeas, cucumber, tomatoes, and feta cheese
+3. Snack: Cottage cheese with pineapple slices
+4. Dinner: Grilled shrimp with wild rice and sautéed spinach------>
+Friday's Diet Plan:
+1. Breakfast: Whole-wheat pancakes with a drizzle of honey and a side of berries
+2. Lunch: Grilled salmon wrap with spinach and avocado in a whole-wheat tortilla
+3. Snack: Celery sticks with almond butter
+4. Dinner: Baked chicken thighs with roasted carrots and couscous------>
+Saturday's Diet Plan:
+1. Breakfast: Scrambled eggs with avocado and whole-grain toast
+2. Lunch: Tuna salad with leafy greens, olives, and olive oil dressing
+3. Snack: Mixed nuts and a banana
+4. Dinner: Grilled beef steak with mashed sweet potatoes and roasted asparagus------>
+Sunday's Diet Plan:
+1. Breakfast: Smoothie bowl with mixed berries, chia seeds, and granola
+2. Lunch: Quinoa and black bean salad with lime dressing
+3. Snack: A handful of almonds and a handful of grapes
+4. Dinner: Vegetable stir-fry with tofu and brown rice`;
+
+}
+else if (message.includes('vegetarian') || message.includes('veg') || message.includes('diet plan')) {
+    return `Here’s a sample vegetarian diet plan for the week:
+
+1. *Monday*:
+   - Breakfast: Oatmeal with almond butter, banana, and chia seeds.
+   - Lunch: Lentil soup with whole-grain bread.
+   - Snack: A handful of almonds and an apple.
+   - Dinner: Grilled tofu with quinoa and steamed broccoli.
+
+2. *Tuesday*:
+   - Breakfast: Greek yogurt with mixed berries and granola.
+   - Lunch: Quinoa salad with chickpeas, cucumber, and feta cheese.
+   - Snack: Carrot sticks with hummus.
+   - Dinner: Stir-fried vegetables with tofu and brown rice.
+
+3. *Wednesday*:
+   - Breakfast: Smoothie with spinach, mango, and almond milk.
+   - Lunch: Veggie wrap with avocado, lettuce, and hummus in a whole-wheat tortilla.
+   - Snack: A handful of walnuts and a pear.
+   - Dinner: Paneer curry with brown rice and steamed vegetables.
+
+4. *Thursday*:
+   - Breakfast: Whole-wheat toast with peanut butter and sliced banana.
+   - Lunch: Grilled vegetable sandwich with a side of mixed greens.
+   - Snack: Cottage cheese with pineapple.
+   - Dinner: Chickpea and spinach curry with quinoa.
+
+5. *Friday*:
+   - Breakfast: Whole-wheat pancakes with berries and honey.
+   - Lunch: Lentil salad with roasted vegetables and tahini dressing.
+   - Snack: Celery sticks with almond butter.
+   - Dinner: Baked stuffed bell peppers with quinoa and black beans.
+
+6. *Saturday*:
+   - Breakfast: Scrambled eggs with spinach and whole-wheat toast (can substitute with tofu scramble for vegan).
+   - Lunch: Greek salad with cucumbers, tomatoes, olives, and feta cheese.
+   - Snack: A handful of mixed nuts and a banana.
+   - Dinner: Veggie stir-fry with tempeh and brown rice.
+
+7. *Sunday*:
+   - Breakfast: Smoothie bowl with chia seeds, granola, and mixed fruit.
+   - Lunch: Falafel wrap with hummus, lettuce, and tomatoes.
+   - Snack: A handful of almonds and a handful of grapes.
+   - Dinner: Grilled halloumi cheese with roasted vegetables and couscous.
+
+This plan provides a balance of plant-based proteins, healthy fats, and whole grains for optimal nutrition throughout the week. You can customize the meals as per your preference!`;
+}
+else if (message.includes('Indian') || message.includes('diet plan')) {
+    return `Here’s a sample Indian diet plan for the week:
+
+1. *Monday*:
+   - Breakfast: Poha (flattened rice) with peas and peanuts.
+   - Lunch: Vegetable biryani with raita (yogurt with cucumber).
+   - Snack: A handful of roasted chickpeas.
+   - Dinner: Dal (lentil soup) with rice and a side of sautéed greens.
+
+2. *Tuesday*:
+   - Breakfast: Upma (semolina porridge) with mixed vegetables.
+   - Lunch: Chole (chickpea curry) with whole-wheat roti.
+   - Snack: A piece of seasonal fruit (like a banana or an apple).
+   - Dinner: Paneer tikka with mixed vegetable salad.
+
+3. *Wednesday*:
+   - Breakfast: Idli (steamed rice cakes) with coconut chutney and sambar (lentil stew).
+   - Lunch: Vegetable khichdi (rice and lentils) with papad.
+   - Snack: Dhokla (steamed chickpea flour snack).
+   - Dinner: Aloo gobi (potato and cauliflower curry) with roti.
+
+4. *Thursday*:
+   - Breakfast: Masala dosa (spiced potato-filled crepe) with chutney.
+   - Lunch: Rajma (kidney bean curry) with rice.
+   - Snack: A handful of mixed nuts or seeds.
+   - Dinner: Baingan bharta (smoky mashed eggplant) with chapati.
+
+5. *Friday*:
+   - Breakfast: Chia pudding made with milk and topped with fruits.
+   - Lunch: Pulao (spiced rice) with mixed vegetables and yogurt.
+   - Snack: Samosa with mint chutney.
+   - Dinner: Chicken curry (or paneer curry for vegetarian) with naan.
+
+6. *Saturday*:
+   - Breakfast: Aloo paratha (stuffed potato flatbread) with yogurt.
+   - Lunch: Methi thepla (fenugreek flatbread) with pickle and curd.
+   - Snack: Fruit chaat (mixed fruit salad with spices).
+   - Dinner: Palak paneer (spinach and cheese) with roti.
+
+7. *Sunday*:
+   - Breakfast: Rawa idli with sambar and coconut chutney.
+   - Lunch: Daal makhani with steamed rice.
+   - Snack: Bhel puri (puffed rice snack with vegetables).
+   - Dinner: Fish curry (or tofu curry for vegetarian) with rice.
+
+This plan incorporates a variety of Indian dishes that are rich in flavors and nutrients. Feel free to adjust based on local availability and personal preferences!`;
+}
+else if (message.includes('Rajasthani') || message.includes('diet plan')) {
+    return `Here’s a sample Rajasthani diet plan for the week:
+
+1. *Monday*:
+   - Breakfast: Dal Baati Churma (hard wheat rolls with lentil curry and sweet crumbled wheat).
+   - Lunch: Gatte ki Sabzi (gram flour dumplings in spicy gravy) with chapati.
+   - Snack: Kachori (spiced lentil-filled pastry).
+   - Dinner: Ker Sangri (desert beans and berries) with bajra roti (millet flatbread).
+
+2. *Tuesday*:
+   - Breakfast: Methi Thepla (fenugreek flatbread) with yogurt.
+   - Lunch: Rajasthani Khichdi (rice and lentils) with a side of papad.
+   - Snack: Chivda (spiced flattened rice mix).
+   - Dinner: Lal Maas (spicy mutton curry) with steamed rice (or a vegetarian alternative like spicy vegetable curry).
+
+3. *Wednesday*:
+   - Breakfast: Ghee-laden Puri with potato curry.
+   - Lunch: Dal (lentil soup) with steamed rice and a side of vegetable salad.
+   - Snack: Dhokla (steamed chickpea flour snack).
+   - Dinner: Bhindi (okra) masala with chapati.
+
+4. *Thursday*:
+   - Breakfast: Rajasthani Daal with Bajra Khichdi.
+   - Lunch: Pigeon pea curry (toor dal) with jowar roti (sorghum flatbread).
+   - Snack: A piece of seasonal fruit (like a guava or a banana).
+   - Dinner: Gatte ki Sabzi with rice.
+
+5. *Friday*:
+   - Breakfast: Besan Cheela (gram flour pancakes) with green chutney.
+   - Lunch: Rajasthani Daal with chapati and mixed vegetable pickle.
+   - Snack: Kesar Pista Lassi (saffron and pistachio flavored yogurt drink).
+   - Dinner: Paneer Butter Masala with naan.
+
+6. *Saturday*:
+   - Breakfast: Aloo Paratha (potato-stuffed flatbread) with butter and yogurt.
+   - Lunch: Rajasthani Thali (an assortment of Rajasthani dishes).
+   - Snack: Chaat (spicy snack mix).
+   - Dinner: Tandoori Chicken (or paneer for vegetarians) with mixed vegetable salad.
+
+7. *Sunday*:
+   - Breakfast: Poha (flattened rice) with peanuts and spices.
+   - Lunch: Rajasthani Pulao with raita (yogurt with cucumber).
+   - Snack: Gajak (sweet sesame and jaggery treat).
+   - Dinner: Vegetable Biryani with raita.
+
+This plan showcases the rich culinary heritage of Rajasthan, featuring a variety of flavors and traditional dishes. Adjust based on local availability and personal preferences!`;
+}
+else if (message.includes('importance') || message.includes('diet plan')) {
+    return `A well-structured diet plan is essential for several reasons:
+
+1. *Nutritional Balance*: It ensures that you get a proper mix of macronutrients (proteins, carbohydrates, and fats) and micronutrients (vitamins and minerals) necessary for optimal health.
+
+2. *Weight Management*: A diet plan can help you control portion sizes and calorie intake, making it easier to maintain or achieve a healthy weight.
+
+3. *Health Improvement*: Following a diet plan tailored to your specific health needs can aid in managing chronic conditions such as diabetes, hypertension, and cholesterol levels.
+
+4. *Increased Energy Levels*: A balanced diet provides the energy needed to fuel daily activities and exercise, enhancing overall productivity and performance.
+
+5. *Better Digestion*: Including a variety of foods, particularly fruits, vegetables, and whole grains, can improve digestion and promote gut health.
+
+6. *Mental Well-being*: Nutrition has a direct impact on mental health; a balanced diet can help improve mood, reduce stress, and enhance cognitive function.
+
+7. *Long-term Habits*: Creating a diet plan encourages healthier eating habits and lifestyle choices, promoting long-term health benefits.
+
+8. *Cost-Effectiveness*: Planning meals can help in budgeting for groceries, reducing food waste, and avoiding impulse purchases.
+
+Incorporating a diet plan into your routine can significantly contribute to overall health and well-being, making it a vital component of a healthy lifestyle.`;
+}
+
+
+
+ else {
+                return "I'm here to help with diet plan. Could you please clarify your question?";
+            }
+        }
+    </script>
+</body>
+</html>

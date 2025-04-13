@@ -1,0 +1,116 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+header {
+    background-image: linear-gradient(to right, #cebfdf 0%, #2575fc 100%);
+}
+
+.yoga-principle {
+    transition: transform 0.3s ease-in-out;
+}
+
+.yoga-principle:hover {
+    transform: translateY(-10px);
+}
+
+.sports-card {
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.sports-card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(150, 145, 145, 0.15);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.carousel-item img {
+    height: 400px;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    .carousel-item img {
+        height: 300px;
+    }
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.bg-gold {
+    background-color: #FFD700;
+}
+
+.bg-silver {
+    background-color: #C0C0C0;
+}
+
+.bg-bronze {
+    background-color: #CD7F32;
+}
+
+.badge {
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #007bff;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+footer a:hover {
+    color: #007bff !important;
+}
+
+@media (max-width: 768px) {
+    .card-deck {
+        flex-direction: column;
+    }
+}
