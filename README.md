@@ -34,22 +34,29 @@ Fitness PlayGround is a comprehensive fitness platform developed by HackHounds f
 ## Screenshots
 
 ### Homepage
-![Homepage](./before_login/images/logo.jpg)
+![Homepage](./images/Fitness%20Playground%20Logo.jpg)
+![welcome page](./images/welcome%20page.jpeg)
 
 ### Login Screens
-![Customer Login](./login_sign/images/photo-1544367567-0f2fcb009e0b.jpeg)
-![Premium Login](./login_premium/images/photo-1599447421416-3414500d18a5.jpeg)
+![Customer Login](./images/normalusers.jpeg)
+![Premium Login](./images/Premiumusers.jpeg)
+
+### Profile Section
+![Profile Section](./images/profile.jpeg)
 
 ### Shopping Section
 ![Shopping](./shared/images/online-shop-7090105.png)
 
 ### Chat Interface
-![Chat Bot](./shared/images/aid bot.jpg)
+![Chat Bot](./images/Chatbot.jpeg)
 
 ### Yoga Resources
-![Yoga Mat](./shared1/images/yogaa mat.jpg)
+![Yogamat](./images/yoga%20and%20exercies.jpeg)
+
+### faqs
+![FAQs](./images/FAQs.jpeg)
 
 ## Demo Video
-https://youtu.be/UnWHG3e0wZ0?si=WVEBaRD7m7hb7R8k
+[Watch the Demo on Youtube](https://youtu.be/UnWHG3e0wZ0?si=WVEBaRD7m7hb7R8k)
 
 #AMUHACKS4.0 #CSSAMU #AMU
