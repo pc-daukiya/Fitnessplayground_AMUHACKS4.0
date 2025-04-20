@@ -59,4 +59,7 @@ Fitness PlayGround is a comprehensive fitness platform developed by HackHounds f
 ## Demo Video
 [Watch the Demo on Youtube](https://youtu.be/UnWHG3e0wZ0?si=WVEBaRD7m7hb7R8k)
 
+## License
+This project is open source and free to use.
+
 #AMUHACKS4.0 #CSSAMU #AMU
